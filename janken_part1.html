@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      console.log("---------------------------------------");
+
+      // weather ウェザー: 天気
+      let weather = "";
+
+      // 注意：　== は　左辺と右辺が等しい   = は　箱に中身を入れること
+      // もし weather が sunny　なら遊びにいく、そうでないなら勉強する
+      console.log("今日は" + weather + "なので、");
+      if (weather == "晴れ") {
+        console.log("");
+      } else {
+        console.log("");
+      }
+
+      // weather ウェザー: 天気
+      // sunny サニー: 晴れ
+      // cloudy クラウディ: 曇り
+      // rain レイン: 雨
+      let weather2 = "cloudy";
+
+      console.log("変数weatherの中身は" + weather);
+      if (weather2 == "sunny") {
+        console.log("自転車で行く");
+      } else if (weather2 == "cloudy") {
+        console.log("歩いて行く");
+      } else {
+        console.log("家にいる");
+      }
+
+      console.log("-------------------------");
+      console.log("ジャンケンをする");
+
+      // 問1 (復習)要素が　グー　チョキ　パーで変数名がjankenの配列を作ろう
+      let janken = ["グー"];
+      console.log(janken);
+
+      // 問2 乱数を使って相手のジャンケンの手を作ってみよう
+      // myPair 自分の手  yourPair 相手の手
+      // myPair = Math.floor(Math.random() * 3);
+      // console.log(mypair)
+      // yourpair = Math.floor(Math.random() * 3);
+      // console.log(youpair);
+
+      // 問3 自分のじゃんけんの手のもと(数字)をじゃんけんの手に変えてみよう
+      // if ( myPair == 0){
+      //     myPair = "グー";
+      //     console.log("myPair" + "はぐー");
+      // }
+
+      // 問4 相手のじゃんけんの手のもと(数字)をじゃんけんの手に変えてみよう
+
+      // 問5 自分と相手でじゃんけんしてみよう
+      // if (myPair == "グー" && yourPair == "チョキ") {
+      //   console.log("勝ち")
+      // } else if (myPair == "グー" && yourPair == "グー") {
+      //   console.log("引き分け")
+      // } else if (myPair == "グー" && yourPair == "パー") {
+      //   console.log("負け")
+      // }
+
+      // game ゲーム: 試合
+      // win ウィン:　勝つ
+      // lose ルーズ: 負ける
+      // console.log(myPair);
+
+      // let janken = ["グー", "チョキ", "パー"];
+      // console.log(janken);
+
+      console.log("---------------------------------------");
+    </script>
+  </body>
+</html>

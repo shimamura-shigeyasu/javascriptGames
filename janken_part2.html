@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      console.log("---------------------------------------");
+      console.log("オブジェクトを学ぶ");
+
+      console.log("-------------------------");
+
+      // 新しい配列を作成
+      // 配列の要素を変えてみる(増やす・減らす・変える)
+
+      // let janken = ["グー", "チョキ", "パー"];
+      // console.log(janken);
+
+      // mypair = Math.floor(Math.random() * 3);
+      // console.log(mypair)
+      // youpair = Math.floor(Math.random() * 3);
+      // console.log(youpair);
+
+      //let janken = Math.floor(Math.random() * 3);
+
+      // game ゲーム: 試合
+      // win ウィン:　勝つ
+      // lose ルーズ: 負ける
+      // draw ドロー: 引き分け
+
+      let student = {
+        name: "taro",
+        age: 10,
+        walk: function () {
+          console.log("あるく");
+        },
+      };
+
+      // 問1 自分とプレイヤーのオブジェクトを作ってみよう
+      //     必要な情報は　名前　年齢　身長　体重　じゃんけんの手
+      let player1 = {
+        name: "",
+        janken: "グー",
+        life: 3,
+        win_num: 0,
+      };
+
+      // 問2 相手プレイヤーのオブジェクトを作ってみよう
+
+      // 問3 相手のオブジェクトのジャンケンの手を変えてみよう
+      let myPair = Math.floor(Math.random() * 3);
+      if (myPair == 0) {
+        player1.janken = "グー";
+        console.log("グーに変えました");
+      } else if (myPair == 1) {
+        player1.janken = "チョキ";
+        console.log("チョキに変えました");
+      } else {
+        player1.janken = "パー";
+        console.log("パーに変えました");
+      }
+      console.log(`私のじゃんけんの手は${player1.janken}`);
+
+      let yourPair;
+
+      // 問4 じゃんけんしてみよう。勝ったら勝利数を増やす、負けたらライフを減らしてみよう
+      //     ライフが0になったらゲームオーバーと表示してみよう
+
+      console.log("---------------------------------------");
+    </script>
+  </body>
+</html>

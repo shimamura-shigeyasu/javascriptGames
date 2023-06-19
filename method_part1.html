@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      console.log("---------------------------------------");
+      console.log("メソッドを学ぶ");
+
+      console.log("-------------------------");
+
+      let student = {
+        name: "taro",
+        age: 10,
+        walk: function () {
+          console.log("あるく");
+        },
+      };
+
+      function Walk() {
+        console.log("あるく");
+      }
+
+      function Hello(name) {
+        console.log("はじめまして");
+        console.log(name);
+      }
+
+      // すごろくRPGを作ってみよう
+
+      function Set() {
+        let turn = 1;
+        let name = "ANN";
+        return {
+          showName: function () {
+            console.log(`名前は${name}です`);
+          },
+          changeName: function (name2) {
+            console.log(`名前 ${name} は ${name2} に変更されました`);
+            name = name2;
+          },
+          showTurn: function () {
+            console.log(`現在はターン ${turn}`);
+          },
+          nextTurn: function () {
+            console.log("-------次のターン開始-------");
+            turn += 1;
+            console.log(`-------現在はターン ${turn}--------`);
+
+            // ターンで行う処理をかく
+            saikoro();
+          },
+          die: function () {
+            slime.die();
+          },
+          Profile: function () {
+            player.showInfo();
+          },
+        };
+      }
+
+      let Game = Set();
+
+      // 問1 RPGのプレイヤーオブジェクトを作ってみよう
+      // 必要な情報
+      // キャラクターの名前
+      // ライフ
+      // こうげきりょく
+      // ぼうぎょりょく
+      // 現在のマス目 初期値:1  10マス進んだらゲームクリア
+
+      // 問2　RPGのザコキャラクターのオブジェクトを作ってみよう
+
+      // 問3 サイコロの関数を作ってみよう
+      function saikoro() {
+        let number = Math.floor(Math.random() * 6) + 1;
+        console.log("サイコロの目は" + number);
+
+        if (number == 1) {
+          // プレイヤーのマスを増やす
+        } else if (number == 2) {
+          // 戦闘
+          battle();
+        } else if (number == 3) {
+          // プレイヤーの体力回復
+        } else if (number == 4) {
+          // プレイヤーの攻撃力アップ
+        }
+      }
+
+      // 問4 戦闘の関数を作ってみよう
+      function battle() {
+        console.log("------戦闘開始!!---------");
+
+        // 処理
+
+        console.log("----------戦闘終了!!---------");
+      }
+
+      console.log("---------------------------------------");
+    </script>
+  </body>
+</html>

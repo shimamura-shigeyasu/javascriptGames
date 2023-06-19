@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style></style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      console.log("---------------------------------------");
+      console.log("繰り返し文を学ぶ");
+
+      console.log("-------------------------");
+
+      let student = {
+        name: "taro",
+        age: 10,
+        // walk:function(){
+        //   console.log("あるく")
+        // }
+      };
+
+      function Walk() {
+        console.log("あるく");
+      }
+
+      function Hello(name) {
+        console.log("はじめまして");
+        console.log(name);
+      }
+
+      for (let i = 0; i < 10; i++) {
+        Walk();
+      }
+
+      // let health = 100;
+      // while(health>0){
+      //   health--;
+      //   console.log(health);
+      // }
+      // console.log("死亡");
+
+      // 問1 繰り返し文を利用して1~100まで表示してみよう
+
+      // 問2 RPGの戦闘を作成してみよう
+
+      let player = {
+        name: "",
+        janken: "グー",
+        life: 3,
+        win_num: 0,
+      };
+      let monster = {
+        life: 3,
+      };
+
+      function battle() {
+        console.log("------戦闘開始!!---------");
+        // monster1 = monsterとすると、monsterの参照がmonster1に渡される
+        // スプレッド演算子 ... を利用することで、情報だけ渡せる
+        let monster1 = { ...monster };
+
+        // 処理
+        // プレイヤーか敵のライフが0になるまで続ける
+        while (monster1.life > 0) {
+          monster1.life--;
+          console.log(`monsterのライフは${monster.life}`);
+          console.log(`monster1のライフは${monster1.life}`);
+        }
+        console.log("----------戦闘終了!!---------");
+      }
+
+      battle();
+
+      console.log("---------------------------------------");
+    </script>
+  </body>
+</html>
