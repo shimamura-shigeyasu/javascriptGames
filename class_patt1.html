@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>クラス</title>
+    <style></style>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      class MageClass {
+        constructor(name) {
+          this.name = name;
+          this.atk = 200;
+          this.def = 100;
+        }
+
+        attack() {
+          console.log(`${this.name}の攻撃！`);
+        }
+      }
+
+      let agent1 = new MageClass("さんぷるぷれいやー");
+      let agent2 = new MageClass("サンプル2");
+
+      let agents = [];
+      agents.push(agent1);
+      agents.push(agent2);
+
+      
+    </script>
+  </body>
+</html>
