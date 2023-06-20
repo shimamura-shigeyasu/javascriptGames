@@ -139,7 +139,15 @@
 
         x += dx;
         y += dy;
+
+        for (let i = 0; i < 100000000000; i++) {
+          console.log(i);
+        }
       }
+
+      // draw　重い処理をすることでintervalがどう動くかどうかを調べられる
+
+      // 実際のフレームレートを確認
 
       var interval = setInterval(draw, 10);
     </script>
