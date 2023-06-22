@@ -27,6 +27,7 @@
       var leftPressed = false;
       var dx = 2;
       var dy = -2;
+      let score = 0;
 
       const brickRowCount = 3;
       const brickColumnCount = 5;
@@ -77,10 +78,24 @@
               ) {
                 dy = -dy;
                 b.status = 0;
+                score += 10;
+
+                // ゲームクリア判定
+                if (score === brickRowCount * brickColumnCount) {
+                  alert("勝利!");
+                  document.location.reload();
+                  clearInterval(interval);
+                }
               }
             }
           }
         }
+      }
+
+      function drawScore() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText(`Score: ${score}`, 8, 20);
       }
 
       function drawBall() {
@@ -126,6 +141,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
         drawPaddle();
+        drawScore();
         collisionDetection();
         drawBricks();
 
