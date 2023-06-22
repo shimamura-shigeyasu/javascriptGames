@@ -27,6 +27,7 @@
       var leftPressed = false;
       var dx = 2;
       var dy = -2;
+      let score = 0;
 
       const brickRowCount = 3;
       const brickColumnCount = 5;
@@ -64,6 +65,48 @@
         }
       }
 
+      document.addEventListener("mousemove", mouseMoveHandler, false);
+
+      function mouseMoveHandler(e) {
+        const relativeX = e.clientX - canvas.offsetLeft;
+        if (relativeX > 0 && relativeX < canvas.width) {
+          paddleX = relativeX - paddleWidth / 2;
+        }
+      }
+
+      function collisionDetection() {
+        for (let r = 0; r < brickRowCount; r++) {
+          for (let l = 0; l < brickColumnCount; l++) {
+            const b = bricks[r][l];
+            if (b.status === 1) {
+              if (
+                b.x < x &&
+                x < b.x + brickWidth &&
+                b.y < y &&
+                y < b.y + brickHeight
+              ) {
+                dy = -dy;
+                b.status = 0;
+                score += 10;
+
+                // ゲームクリア判定
+                if (score === brickRowCount * brickColumnCount) {
+                  alert("勝利!");
+                  document.location.reload();
+                  clearInterval(interval);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      function drawScore() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText(`Score: ${score}`, 8, 20);
+      }
+
       function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, 10, 0, Math.PI * 2);
@@ -88,25 +131,27 @@
       function drawBricks() {
         for (var c = 0; c < brickRowCount; c++) {
           for (var r = 0; r < brickColumnCount; r++) {
-            var brickX = r * (brickWidth + brickPadding) + brickOffsetLeft;
-            var brickY = c * (brickHeight + brickPadding) + brickOffsetTop;
-            bricks[c][r].x = brickX;
-            bricks[c][r].y = brickY;
-            ctx.beginPath();
-            ctx.rect(brickX, brickY, brickWidth, brickHeight);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
+            if (bricks[c][r].status === 1) {
+              var brickX = r * (brickWidth + brickPadding) + brickOffsetLeft;
+              var brickY = c * (brickHeight + brickPadding) + brickOffsetTop;
+              bricks[c][r].x = brickX;
+              bricks[c][r].y = brickY;
+              ctx.beginPath();
+              ctx.rect(brickX, brickY, brickWidth, brickHeight);
+              ctx.fillStyle = "#0095DD";
+              ctx.fill();
+              ctx.closePath();
+            }
           }
         }
       }
-
-      function collisionDetection() {}
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
         drawPaddle();
+        drawScore();
+        collisionDetection();
         drawBricks();
 
         if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
@@ -139,15 +184,7 @@
 
         x += dx;
         y += dy;
-
-        for (let i = 0; i < 100000000000; i++) {
-          console.log(i);
-        }
       }
-
-      // draw　重い処理をすることでintervalがどう動くかどうかを調べられる
-
-      // 実際のフレームレートを確認
 
       var interval = setInterval(draw, 10);
     </script>
