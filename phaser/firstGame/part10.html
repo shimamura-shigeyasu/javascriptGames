@@ -39,9 +39,9 @@
       var gameOver = false;
       var scoreText;
       let life = 100;
-      let count = 60;
+      let count = 0;
       let lifeText;
-      let isDamage = false;
+      // let isDamage = false;
 
       var game = new Phaser.Game(config);
 
@@ -168,20 +168,14 @@
         // player.setTint(0x000000);
         console.log(player.body);
 
-        if (isDamage) {
-          if (count > 0) {
-            if (count % 2 == 0) {
-              player.setTint(0xff0000);
-            } else {
-              player.setTint(0x00000);
-            }
-
-            count--;
+        if (count > 0) {
+          if (count % 2 == 0) {
+            player.setTint(0xff0000);
+          } else {
+            player.setTint(0x00000);
           }
 
-          if (count == 0) {
-            isDamage = false;
-          }
+          count--;
         }
       }
 
@@ -211,14 +205,14 @@
       }
 
       function hitBomb(player, bomb) {
-        if (isDamage) {
+        if (count > 0) {
           return;
         }
 
         if (life > 0) {
           life--;
           count = 60;
-          isDamage = true;
+          // isDamage = true;
         } else {
           this.physics.pause();
 
