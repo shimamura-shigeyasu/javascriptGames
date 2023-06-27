@@ -37,6 +37,7 @@
       const brickPadding = 10;
       const brickOffsetTop = 30;
       const brickOffsetLeft = 30;
+      let brickNum = brickRowCount * brickColumnCount;
 
       var bricks = [];
       for (var c = 0; c < brickRowCount; c++) {
@@ -89,6 +90,7 @@
                 dy = -dy;
                 b.status = 0;
                 score += 10;
+                brickNum--;
 
                 // ゲームクリア判定
                 if (score === brickRowCount * brickColumnCount) {
@@ -100,6 +102,16 @@
             }
           }
         }
+
+
+        // ゲームクリア判定
+        if(brickNum === 0) {
+          alert("ゲームクリア！")
+          document.location.reload()
+          clearInterval(interval)
+        }
+
+
       }
 
       function drawScore() {

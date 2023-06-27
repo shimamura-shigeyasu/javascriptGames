@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Making your first Phaser 3 Game 0</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+
+      let game = new Phaser.Game(config);
+      let ball;
+
+      function preload() {
+        game.load.image("ball", "assets/ball.png");
+      }
+
+      function create() {
+        ball = game.add.sprite(50, 50, "ball");
+      }
+
+      function update() {
+        console.log(ball);
+        console.log(ball.x);
+        console.log(ball.y);
+      }
+    </script>
+  </body>
+</html>
