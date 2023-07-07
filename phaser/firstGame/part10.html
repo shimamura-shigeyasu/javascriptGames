@@ -38,10 +38,9 @@
       var score = 0;
       var gameOver = false;
       var scoreText;
-      let life = 100;
       let count = 0;
       let lifeText;
-      // let isDamage = false;
+      let life = 3;
 
       var game = new Phaser.Game(config);
 
@@ -123,7 +122,7 @@
           fill: "#000",
         });
 
-        lifeText = this.add.text(16, 48, "life: 100", {
+        lifeText = this.add.text(16, 48, `life: ${life}`, {
           fontSize: "32px",
           fill: "#000",
         });
@@ -162,17 +161,11 @@
           player.setVelocityY(-330);
         }
 
-        // console.log(`life : ${life}`);
-        // console.log(`isDamage: ${isDamage}`);
-
-        // player.setTint(0x000000);
-        console.log(player.body);
-
         if (count > 0) {
           if (count % 2 == 0) {
             player.setTint(0xff0000);
           } else {
-            player.setTint(0x00000);
+            player.setTint(undefined);
           }
 
           count--;
@@ -211,8 +204,9 @@
 
         if (life > 0) {
           life--;
+          lifeText.setText(`life:{life}`);
+
           count = 60;
-          // isDamage = true;
         } else {
           this.physics.pause();
 
