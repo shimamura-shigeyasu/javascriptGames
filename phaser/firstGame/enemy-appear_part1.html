@@ -38,11 +38,11 @@
       var score = 0;
       var gameOver = false;
       var scoreText;
-      let life = 100;
       let count = 0;
       let lifeText;
-      let hearts;
-      // let isDamage = false;
+      let life = 3;
+      let enemy;
+      let enemy2;
 
       var game = new Phaser.Game(config);
 
@@ -51,11 +51,11 @@
         this.load.image("ground", "./assets/platform.png");
         this.load.image("star", "./assets/star.png");
         this.load.image("bomb", "./assets/bomb.png");
-        this.load.image("heart", "./assets/star.png");
         this.load.spritesheet("dude", "./assets/soldier.png", {
           frameWidth: 48,
           frameHeight: 48,
         });
+        this.load.image("mashroom", "./assets/Mushroom.png");
       }
 
       function create() {
@@ -73,17 +73,6 @@
         platforms.create(600, 400, "ground");
         platforms.create(50, 250, "ground");
         platforms.create(750, 220, "ground");
-
-        hearts = this.add.group({
-          key: "heart",
-          fram: [0, 1, 2],
-          repeat: 3,
-          setXY: {
-            x: 300,
-            y: 400,
-            stepX: 30,
-          },
-        });
 
         // The player and its settings
         player = this.physics.add.sprite(100, 450, "dude");
@@ -136,7 +125,7 @@
           fill: "#000",
         });
 
-        lifeText = this.add.text(16, 48, "life: 100", {
+        lifeText = this.add.text(16, 48, `life: ${life}`, {
           fontSize: "32px",
           fill: "#000",
         });
@@ -150,6 +139,16 @@
         this.physics.add.overlap(player, stars, collectStar, null, this);
 
         this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+        // enemy = this.physics.add.existing(new Mashroom(this, 130, 512), true);
+
+        enemy = new Mashroom(this, 120, 400);
+
+        this.physics.add.collider(enemy, platforms);
+
+        this.physics.add.collider(player, enemy);
+
+        enemy.setCollideWorldBounds(true);
       }
 
       function update() {
@@ -157,9 +156,8 @@
           return;
         }
 
-        // Phaser.Utils.Array.
-
-        // console.log(hearts.getChildren()[0].visible);
+        console.log(enemy);
+        // console.log(player);
 
         if (cursors.left.isDown) {
           player.setVelocityX(-160);
@@ -179,17 +177,11 @@
           player.setVelocityY(-330);
         }
 
-        // console.log(`life : ${life}`);
-        // console.log(`isDamage: ${isDamage}`);
-
-        // player.setTint(0x000000);
-        console.log(player.body);
-
         if (count > 0) {
           if (count % 2 == 0) {
             player.setTint(0xff0000);
           } else {
-            player.setTint(0x00000);
+            player.setTint(undefined);
           }
 
           count--;
@@ -226,12 +218,11 @@
           return;
         }
 
-        hearts.getChildren()[life];
-
         if (life > 0) {
           life--;
+          lifeText.setText(`life:{life}`);
+
           count = 60;
-          // isDamage = true;
         } else {
           this.physics.pause();
 
@@ -240,6 +231,20 @@
           player.anims.play("turn");
 
           gameOver = true;
+        }
+      }
+
+      class Mashroom extends Phaser.Physics.Arcade.Sprite {
+        constructor(scene, x, y) {
+          super(scene, x, y, "mashroom");
+
+          scene.physics.world.enable(this);
+          scene.add.existing(this);
+        }
+
+        preUpdate(time, delta) {
+          super.preUpdate(time, delta);
+          this.rotation += 0.01;
         }
       }
     </script>
