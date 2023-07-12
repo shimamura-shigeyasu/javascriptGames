@@ -181,8 +181,8 @@
           console.log("space pressed");
 
           let slash = new Slash(this);
-          console.log(slash);
-          slash.create(player);
+          // console.log(slash);
+          // slash.create(player);
 
           // playerのattack(実際には攻撃spriteを表示する)
         }
@@ -247,11 +247,17 @@
       class Slash extends Phaser.GameObjects.Sprite {
         constructor(scene) {
           super(scene);
-          this.scene.physics.world.enable(this);
-          this.body.setSize(8, 8);
+          scene.physics.world.enable(this);
+          scene.add.existing(this);
 
-          // モノが置かれる位置は左上の点を基準に置かれる。実際の当たり判定はモノの中心を中心にしたいのでoffset調整をする
-          this.body.offset.set(12, 12);
+          this.body.setVelocity(0, 0).setBounce(0, 0);
+          this.body.setCollideWorldBounds(true);
+
+          this.player = this.scene.player;
+
+          this.scene.physics.add.collider(this, platforms);
+
+          create(player);
         }
 
         // createAnim(){
@@ -271,6 +277,7 @@
           // this.play('swing')
           // this.setTexture("swing");
           this.scene.add.existing(this);
+          console.log(this);
         }
       }
 

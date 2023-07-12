@@ -30,6 +30,8 @@
         },
       };
 
+      const STATE_WIDTH = 800
+
       var player;
       var stars;
       var bombs;
@@ -106,8 +108,11 @@
         stars = this.physics.add.group({
           key: "star",
           repeat: 11,
-          setXY: { x: 12, y: 0, stepX: 70 },
+          setXY: { x: 12, y: 0, stepX: STAGE_WIDTH  },
         });
+
+
+
 
         stars.children.iterate(function (child) {
           //  Give each star a slightly different bounce
