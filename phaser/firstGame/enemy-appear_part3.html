@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Making your first Phaser 3 Game - Part 10</title>
+    <title>ボタンを押すとキャラクターがアクション</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
     <style type="text/css">
       body {
@@ -43,6 +43,7 @@
       let life = 3;
       let enemy;
       let enemy2;
+      let items;
 
       var game = new Phaser.Game(config);
 
@@ -57,11 +58,14 @@
         });
         this.load.image("mashroom", "./assets/Mushroom.png");
         this.load.image("sword", "./assets/swordEffect.jpg");
+        this.load.image("coin", "./assets/coin.jpg");
       }
 
       function create() {
         //  A simple background for our game
         this.add.image(400, 300, "sky");
+
+        items = this.physics.add.group();
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = this.physics.add.staticGroup();
@@ -178,13 +182,7 @@
         }
 
         if (cursors.space.isDown) {
-          console.log("space pressed");
-
-          let slash = new Slash(this);
-          // console.log(slash);
-          // slash.create(player);
-
-          // playerのattack(実際には攻撃spriteを表示する)
+          addCoin();
         }
 
         if (count > 0) {
@@ -244,41 +242,12 @@
         }
       }
 
-      class Slash extends Phaser.GameObjects.Sprite {
-        constructor(scene) {
-          super(scene);
-          scene.physics.world.enable(this);
-          scene.add.existing(this);
-
-          this.body.setVelocity(0, 0).setBounce(0, 0);
-          this.body.setCollideWorldBounds(true);
-
-          this.player = this.scene.player;
-
-          this.scene.physics.add.collider(this, platforms);
-
-          create(player);
-        }
-
-        // createAnim(){
-        //   this.scene.anims.create({
-        //     key: 'swing',
-        //     frames: this.scene.anims.generateFrameNames
-        //   })
-        // }
-
-        create(character) {
-          const body = character.body;
-          console.log("slash active");
-          this.setActive(true);
-          this.setVisible(true);
-          this.setPosition(body.x, body.y);
-
-          // this.play('swing')
-          // this.setTexture("swing");
-          this.scene.add.existing(this);
-          console.log(this);
-        }
+      function addCoin() {
+        let coin = items.create(this.player.body.x, this.player.body.y, "star");
+        coin.setVelocity(
+          this.player.body.velocity.x + Phaser.Math.Between(-100, 100),
+          -30
+        );
       }
 
       class Mashroom extends Phaser.GameObjects.Sprite {
