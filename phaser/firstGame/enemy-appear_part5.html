@@ -182,16 +182,10 @@
         enemy.update();
 
         // 敵の数
-        let enemyNum = 0
-         enemies.children.iterate((child) => {
-        
+        let enemyNum = 0;
+        enemies.children.iterate((child) => {
           if (!child.isDeath) enemyNum++;
-
-      
         });
-
-        console.log('数')
-        console.log(enemyNum)
 
         if (enemyNum == 0) {
           console.log("★");
@@ -216,9 +210,9 @@
           const target = player;
 
           if (target.body.x < child.body.x) {
-            child.setVelocity(-100);
+            child.setVelocityX(-100);
           } else if (target.body.x > child.body.x) {
-            child.setVelocity(100);
+            child.setVelocityX(100);
           }
         });
 
