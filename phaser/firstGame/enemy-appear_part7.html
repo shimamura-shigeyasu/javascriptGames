@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>敵のaiを強化</title>
+    <title>敵のaiを強化 stateを分類</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
     <style type="text/css">
       body {
@@ -28,6 +28,12 @@
           create: create,
           update: update,
         },
+      };
+
+      const ENEMY_STATE = {
+        INIT: 0,
+        PATROL: 1,
+        CHASE: 2,
       };
 
       var player;
@@ -123,6 +129,7 @@
         stars.children.iterate(function (child) {
           //  Give each star a slightly different bounce
           child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+          child.state = ENEMY_STATE.INIT;
         });
 
         bombs = this.physics.add.group();
@@ -139,6 +146,7 @@
         });
 
         enemies = this.physics.add.group({
+          classType: Mashroom,
           key: "mashroom",
           repeat: 5,
           setXY: {
@@ -191,9 +199,10 @@
           if (!child.isDeath) enemyNum++;
         });
 
+        // 敵リポップ
         if (enemyNum == 0) {
-          console.log("★");
           enemies = this.physics.add.group({
+            classType: Mashroom,
             key: "mashroom",
             repeat: 5,
             setXY: {
@@ -203,14 +212,21 @@
             },
           });
 
+          // 敵の初期化
           enemies.children.iterate((child) => {
             this.physics.add.collider(child, platforms);
             child.setCollideWorldBounds(true);
             this.physics.add.overlap(child, items, hitCoin, null, this);
+            child.state = ENEMY_STATE.INIT;
           });
         }
 
+        // 毎ターン 敵の行動
         enemies.children.iterate((child) => {
+          // stateによる分岐
+          // console.log(child);
+          // console.log(child.state);
+
           const target = player;
 
           if (target.body.x < child.body.x) {
@@ -319,9 +335,6 @@
         constructor(scene, x, y) {
           super(scene, x, y, "mashroom");
 
-          // scene.physics.world.enable(this);
-          // scene.add.existing(this);
-
           scene.physics.world.enable(this);
           scene.add.existing(this);
 
@@ -331,11 +344,12 @@
           this.player = this.scene.player;
 
           this.scene.physics.add.collider(this, platforms);
-          // this.scene.physics.add.collider(this, player);
 
           this.scene.physics.world.addOverlap(this, player, this.hitPlayer);
 
           this.direction;
+          this.state = ENEMY_STATE.INIT;
+          this.initTimer = 300;
         }
 
         preUpdate(time, delta) {
@@ -343,6 +357,21 @@
         }
 
         update(time, delta) {
+          // stateにより行動パターンを変更
+          switch (this.state) {
+            case ENEMY_STATE.INIT:
+              console.log("Init");
+              break;
+            case ENEMY_STATE.PATROL:
+              console.log("patrol");
+              break;
+            case ENEMY_STATE.CHASE:
+              console.log("chase");
+              break;
+            default:
+              break;
+          }
+
           this.direction = {
             x: player.x,
             y: player.y,
