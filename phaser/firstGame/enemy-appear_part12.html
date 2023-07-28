@@ -263,7 +263,7 @@
         this.physics.add.collider(items, platforms);
 
         killEnemyText = this.add
-          .text(16, 100, `撃破数：${killEnemyCount}`)
+          .text(16, 120, `撃破数：${killEnemyCount}`, {color:'black', fontSize:'32px'})
           .setScrollFactor(0);
 
         this.cameras.main.startFollow(player);
