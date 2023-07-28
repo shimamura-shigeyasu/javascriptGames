@@ -48,6 +48,15 @@
         MOVEMENT_AMOUNT: 0,
       };
 
+      const MIDDLE_BACK_GROUND = {
+        X: 800,
+        Y: STAGE.HEIGHT,
+        KEY: "bg-wood",
+        X_ADJUST: 0,
+        Y_ADJUST: 0.75,
+        MOVEMENT_AMOUNT: 0.25,
+      };
+
       var player;
 
       var stars;
@@ -70,7 +79,8 @@
       var game = new Phaser.Game(config);
 
       function preload() {
-        this.load.image("sky", "./assets/sky.png");
+        this.load.image("sky", "./assets/bg-sky.png");
+        this.load.image("bg-wood", "./assets/bg-wood.png");
         this.load.image("ground", "./assets/platform-c.png");
         this.load.image("star", "./assets/star.png");
         this.load.image("bomb", "./assets/bomb.png");
@@ -89,6 +99,37 @@
         this.add
           .image(BACK_GROUND.X, BACK_GROUND.Y, BACK_GROUND.KEY)
           .setScrollFactor(BACK_GROUND.MOVEMENT_AMOUNT);
+
+        this.add
+          .image(
+            MIDDLE_BACK_GROUND.X * 0,
+            MIDDLE_BACK_GROUND.Y,
+            MIDDLE_BACK_GROUND.KEY
+          )
+          .setOrigin(MIDDLE_BACK_GROUND.X_ADJUST, MIDDLE_BACK_GROUND.Y_ADJUST);
+        this.add
+          .image(
+            MIDDLE_BACK_GROUND.X * 1,
+            MIDDLE_BACK_GROUND.Y,
+            MIDDLE_BACK_GROUND.KEY
+          )
+          .setOrigin(MIDDLE_BACK_GROUND.X_ADJUST, MIDDLE_BACK_GROUND.Y_ADJUST);
+
+        this.add
+          .image(
+            MIDDLE_BACK_GROUND.X * 2,
+            MIDDLE_BACK_GROUND.Y,
+            MIDDLE_BACK_GROUND.KEY
+          )
+          .setOrigin(MIDDLE_BACK_GROUND.X_ADJUST, MIDDLE_BACK_GROUND.Y_ADJUST);
+
+        this.add
+          .image(
+            MIDDLE_BACK_GROUND.X * 3,
+            MIDDLE_BACK_GROUND.Y,
+            MIDDLE_BACK_GROUND.KEY
+          )
+          .setOrigin(MIDDLE_BACK_GROUND.X_ADJUST, MIDDLE_BACK_GROUND.Y_ADJUST);
 
         items = this.physics.add.group({});
 
