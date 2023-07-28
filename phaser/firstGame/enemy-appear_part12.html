@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>プレイヤーが攻撃するように モーションだけ</title>
+    <title>bgm 追加</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.1.1/dist/phaser.js"></script>
     <style type="text/css">
       body {
@@ -75,6 +75,7 @@
       let enemies;
       let killEnemyCount = 0;
       let killEnemyText;
+      const bgms = ["bgm1"];
 
       var game = new Phaser.Game(config);
 
@@ -91,9 +92,13 @@
         this.load.image("mashroom", "./assets/Mushroom.png");
         this.load.image("sword", "./assets/swordEffect.jpg");
         this.load.image("coin", "./assets/coin.jpg");
+
+        this.load.audio("bgm1", "./assets/bgm1.mp3");
       }
 
       function create() {
+        startBgm(this);
+
         //  A simple background for our game
         // player.speed = 100
         this.add
@@ -352,6 +357,15 @@
 
           count--;
         }
+      }
+
+      // アロー関数を使用して、この関数が呼び出されたコンテキストによってthisが変わらないようにします
+      function startBgm(scene) {
+        // 配列からランダムなBGMファイル名を取得します
+        const randomBGM = Phaser.Math.RND.pick(bgms);
+        // ランダムなBGMを再生します
+        const bgm = scene.sound.add(randomBGM, { loop: true });
+        bgm.play();
       }
 
       function playerAttack() {
