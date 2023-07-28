@@ -355,8 +355,13 @@
       }
 
       function playerAttack() {
-        console.log("★");
         player.anims.play("attack", true);
+
+        // this.time.delayedCall(500, () => {
+        //   if (!player.anims.isPlaying) {
+        //     player.anims.play("turn");
+        //   }
+        // });
       }
 
       function collectStar(player, star) {
