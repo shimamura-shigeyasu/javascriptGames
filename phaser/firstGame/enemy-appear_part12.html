@@ -68,7 +68,7 @@
       var scoreText;
       let count = 0;
       let lifeText;
-      let life = 3;
+      let life = 100;
       let enemy;
       let enemy2;
       let items;
@@ -91,7 +91,7 @@
         });
         this.load.image("mashroom", "./assets/Mushroom.png");
         this.load.image("sword", "./assets/swordEffect.jpg");
-        this.load.image("coin", "./assets/coin.jpg");
+        this.load.image("coin", "./assets/Fairy.png");
 
         this.load.audio("bgm1", "./assets/bgm1.mp3");
       }
@@ -219,8 +219,8 @@
 
         lifeText = this.add
           .text(16, 48, `life: ${life}`, {
-            fontSize: "32px",
-            fill: "#000",
+            fontSize: "48px",
+            fill: "yellow",
           })
           .setScrollFactor(0);
 
@@ -417,8 +417,8 @@
         }
 
         if (life > 0) {
-          life--;
-          lifeText.setText(`life:{life}`);
+          life = life - 1;
+          lifeText.setText(`life:${life}`);
 
           count = 60;
         } else {
@@ -433,7 +433,7 @@
       }
 
       function addCoin() {
-        let coin = items.create(this.player.body.x, this.player.body.y, "star");
+        let coin = items.create(this.player.body.x, this.player.body.y, "coin");
         coin.setVelocity(
           this.player.body.velocity.x + Phaser.Math.Between(-100, 100),
           -30
@@ -469,13 +469,10 @@
           // stateにより行動パターンを変更
           switch (this.state) {
             case ENEMY_STATE.INIT:
-              console.log("Init");
               break;
             case ENEMY_STATE.PATROL:
-              console.log("patrol");
               break;
             case ENEMY_STATE.CHASE:
-              console.log("chase");
               break;
             default:
               break;
@@ -495,8 +492,7 @@
         }
 
         hitPlayer() {
-          life--;
-          // console.log(life)
+          console.log("mashroom hits player");
         }
 
         die() {
